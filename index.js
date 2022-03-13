@@ -1,5 +1,6 @@
-const { Builder, By, until } = require('selenium-webdriver')
-const fs = require('fs');
+const fs = require('fs')
+const args = require('minimist')(process.argv.slice(2))
+const { Builder, By, until } = require('selenium-webdriver');
 
 (async () => {
     try {
@@ -12,14 +13,15 @@ const fs = require('fs');
         const password = await driver.findElement(By.xpath('/html/body/div/div[2]/div[2]/div[4]/input'))
         const login = await driver.findElement(By.xpath('/html/body/div/div[2]/div[2]/div[5]/button'))
 
-        await account.sendKeys('*********')
-        await password.sendKeys('*********')
+        await account.sendKeys(args.account)
+        await password.sendKeys(args.password)
         await login.click()
 
         await driver.wait(until.elementLocated(By.xpath('/html/body/div/div[2]/div[2]/div/div[3]/ul/li[1]'), 10000, 'Timeout', 5000)).click()
 
-        const postScript = fs.readFileSync('./post.js')
-        await driver.executeScript(postScript.toString())
+        const form = JSON.parse(args.form)
+        const postScript = fs.readFileSync('./post.js').toString()
+        await driver.executeScript(postScript.replace('<form>', JSON.stringify(form)))
         await driver.quit()
     } catch (err) {
         console.error(err)

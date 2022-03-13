@@ -1,10 +1,11 @@
 {
   "name": "auto-report",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "main": "index.js",
   "license": "MIT",
   "private": true,
   "dependencies": {
+    "minimist": "^1.2.5",
     "selenium-webdriver": "^4.1.1"
   }
 }
