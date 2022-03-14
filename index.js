@@ -25,7 +25,7 @@ const { Options } = require('selenium-webdriver/chrome');
 
         await driver.wait(until.elementLocated(By.xpath('/html/body/div/div[2]/div[2]/div/div[3]/ul/li[1]'), 10000, 'Timeout', 5000)).click()
 
-        const form = JSON.parse(args.form)
+        const form = JSON.parse(Buffer.from(args.form, 'base64'))
         const postScript = fs.readFileSync('./post.js').toString()
         await driver.executeScript(postScript.replace('<form>', JSON.stringify(form)))
         await driver.quit()

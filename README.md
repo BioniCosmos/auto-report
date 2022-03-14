@@ -16,7 +16,7 @@ students in SUT
 
 - `ACCOUNT`：账号
 - `PASSWORD`：密码
-- `FORM`：表单
+- `FORM`：表单的 [Base64 编码](https://www.base64encode.org)
 
 表单的具体内容如下：
 
