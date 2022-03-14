@@ -12,20 +12,21 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3.0.0
-        
+
+      - name: Setup pnpm and install dependencies
+        uses: pnpm/action-setup@v2.2.1
+        with:
+          version: latest
+          run_install: true
+
       - name: Setup Node.js environment
         uses: actions/setup-node@v3.0.0
         with:
           cache: 'pnpm'
-          
-      - name: Setup pnpm and install dependencies
-        uses: pnpm/action-setup@v2.2.1
-        with:
-          run_install: true
 
       - name: Install Chromium and its driver
         run: sudo apt-get install chromium-browser chromium-chromedriver
-        
+
       - name: Run the script
         env:
           ACCOUNT: ${{ secrets.ACCOUNT }}
