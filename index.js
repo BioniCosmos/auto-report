@@ -1,10 +1,16 @@
 const fs = require('fs')
 const args = require('minimist')(process.argv.slice(2))
-const { Builder, By, until } = require('selenium-webdriver');
+const { Builder, By, until } = require('selenium-webdriver')
+const { Options } = require('selenium-webdriver/chrome');
 
 (async () => {
     try {
-        const driver = await new Builder().forBrowser('chrome').build()
+        const options = new Options().addArguments(
+            '--no-sandbox',
+            '--headless',
+            '--disable-dev-shm-usage'
+        )
+        const driver = await new Builder().forBrowser('chrome').setChromeOptions(options).build()
 
         await driver.get('https://yqtb.sut.edu.cn/login/base')
         await driver.manage().window().setRect({ width: 393, height: 851 });
